@@ -1,0 +1,132 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+  
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+	
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Grundlagen}
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Eigenwerte}
+
+A muss regulär sein
+
+%-----------------------------------------------
+\subsection{Von-Mises Iteration}
+
+$x$ ist zufällig gewählt, dann geht $x^k$ gegen ein Vielfaches eines Eigenvektors u von A.
+$z_i^{k+1}$ nähert sich dem größten Eigenwert für $k\rightarrow \infty$.
+
+\begin{equation}
+z^k:=Ax^{k-1}
+\end{equation}
+
+\begin{equation}
+x^k:=\frac{z^k}{z_{i_k}}
+\end{equation}
+, wobei gilt:
+
+\begin{equation}
+\abs{{z_{i_k}}^i}=\max_{i=1}^m\abs z_i^k
+\end{equation}
+
+%-----------------------------------------------
+\subsection{Inverse Iteration von Wielandt}
+
+$y$ ist zufällig gewählt, dann geht $x^k$ gegen ein Vielfaches eines Eigenvektors u von A.
+$w_i^{k+1}$ nähert sich $1/\lambda_m$ für $k\rightarrow \infty$.
+
+\begin{equation}
+w^k:=A^{-1}y{k-1}
+\end{equation}
+
+\begin{equation}
+y^k:=\frac{w^k}{w_{i_k}^k}
+\end{equation},
+wobei gilt:
+
+\begin{equation}
+\abs{{w_{i_k}}^i}=\max_{i=1}^m\abs w_i^k
+\end{equation}
+
+$A^{-1}$ wird typischerweise nicht berechnet, sondern $Aw^k=y^{k-1}$ gelöst.
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Newton-Verfahren}
+
+\begin{equation}
+x^{k+1}=x^k-\frac{F(x^k)}{F'(x^k)}
+\end{equation}
+
+Konvergiert im 1D Fall, wenn F in der Nähe von $x*$ zweifach stetig diff'bar ist.
+Oder mehrdimensionale Schreibweise:
+
+\begin{equation}
+x^{k+1}=x^k-F'(x^k)^{-1}{F(x^k)}
+\end{equation}
+
+\pagebreak
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quadratur}
+
+\subsection{Trapezregel}
+
+Einfache Regel:
+\begin{equation}
+{\int^b_a}{f(x) dx}=(b-a)\frac{f(a)+f(b)}{2}+R(f)
+\end{equation}
+
+Zusammengesetzte Regel:
+\begin{equation}
+{\int^b_a}{f(x) dx}=\frac{h}{2} \cdot f(a) + h \cdot {\sum_{i=1}^{n-1}} \{ f(x_i) \} + \frac{h}{2} \cdot f(b) + R_h(f)
+\end{equation}
+Bedingung: $h:=\frac{b-a}{n}$, sowie $x_i:=a+ih$
+
+\subsection {Rechteckregel}
+\begin{equation}
+{\int^b_a}{f(x) dx}=h \cdot {\sum_{i=0}^{n-1}} f(x_i+\frac{h}{2}) + R_h(f)
+\end{equation}
+Bedingung: $h:=\frac{b-a}{n}$, sowie $x_i:=a+ih$
+
+ 
+\subsection {Newton-Cotes-Formel}
+\begin{equation}
+{\int^b_a}{f(x) dx}=(b-a)\cdot {\sum_{i=0}^n}{a_i^{(n)}f(x_i)} + R_n(f)
+\end{equation}
+
+\begin{equation}
+a_i^{(n)}:=\frac{1}{b-a} {\int_{a}^b} {l_i^{(n)}(x) dx} = \frac{h}{b-a} {\int_0^n} {\prod_{\mu=0, \mu!=i}^n} \frac{s-\mu}{i-\mu}ds
+\end{equation}
+
+\begin{table}[h!]
+	\centering
+	\caption{Koeffizienten}
+	\begin{tabular}{ccccc}
+		n & $a_0^{(n)}$ & $a_1^{(n)}$ & $a_2^{(n)}$ & $a_3^{(n)}$ &
+		\hline 
+		1 & $\frac{1}{2}$ & $\frac{1}{2}$ & &  &
+		2 & $\frac{1}{6}$ & $\frac{4}{6}$ & $\frac{1}{6}$ & &
+		3 & $\frac{1}{8}$ & $\frac{3}{8}$ & $\frac{3}{8}$ & $\frac{1}{8}$
+	\end{tabular}
+\end{table}
+
+Beispiel für n=2:
+
+\begin{equation}
+{\int^b_a}{f(x) dx}=\frac{(b-a)}{6} ( f(a) + 4f(\frac{a+b}{2}) + f(b) ) + R_2(f)
+\end{equation}
+
+\end{document}
